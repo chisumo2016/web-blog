@@ -1,20 +1,16 @@
 @component('mail::message')
 # Introduction
 
-The body of your message.
+Thanks so much for registering
 
-
--one
--two
--three
 
 @component('mail::button', ['url' => ''])
-Button Text
+Start Browsing
 @endcomponent
 
 
 @component('mail::panel', ['url' => ''])
-Button Text
+Some insipiration quoute to go here
 @endcomponent
 
 Thanks,<br>

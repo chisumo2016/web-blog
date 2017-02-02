@@ -100,7 +100,8 @@ return [
     */
 
     'markdown' => [
-        'theme' => 'default',
+        //'theme' => 'default', replace with laracatsts file
+        'theme' => 'laracats',
 
         'paths' => [
             resource_path('views/vendor/mail'),
