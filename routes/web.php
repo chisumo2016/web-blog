@@ -18,6 +18,8 @@ Route::get('/posts/{post}', 'PostsController@show');
 
 Route::post('/posts/{post}/comments', 'CommentsController@store');
 
+Route::get('/posts/tags/{tag}', 'TagsController@index');
+
 
 Route::get('/register', 'RegistrationsController@create');
 Route::post('/register', 'RegistrationsController@store');

@@ -19,7 +19,15 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('partials.sidebar' , function($view){
 
-            $view->with('archieve', \App\Post::archieve());
+            $archieve = \App\Post::archieve();
+            $tags      =  \App\Tag::has('posts')->pluck('name');
+
+            $view->with(compact('archieve','tags'));
+
+
+
+            //$view->with('archieve', );
+            //$view->with('tags',); //$view->with('tags', \App\Tag::pluck('name'));   //$view->with('tags', App\Tag::all());
         });
         Schema::defaultStringLength(191);
     }
