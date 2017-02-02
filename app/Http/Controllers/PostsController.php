@@ -13,51 +13,20 @@ class PostsController extends Controller
     //Middleware
     public function  __construct(Post $posts)
     {
-        $this->middleware('auth')->except(['index', 'show']);
-        //$this->middleware('auth');
+        $this->middleware('auth')->except(['index', 'show']); //$this->middleware('auth');
     }
+
 
     //Display the form
     public  function  index(Post $posts)
     {
-         //$posts = $posts->all();
-         // dd($post);
-         //$posts = (new \App\Repositories\Posts)->all();  Automatic injection
 
-        $posts = Post::latest()
-            ->filter(request(['month', 'year']))
-            ->get();
-
-
-
-        //Code is to mess .To refactor
-        //$posts = Post::latest()->get();
-//        $posts = Post::latest();
-//
-//        if($month = request('month')){
-//            $posts->whereMonth('created_at', Carbon::parse($month)->month);
-//        }
-//
-//        if($year = request('year')){
-//            $posts->whereYear('created_at', $year);
-//        }
-//
-//        $post = $posts->get();
-
+        $posts = Post::latest()->filter(request(['month', 'year']))->get();
 
         //Select Post By Active
-
         $archieve = Post::archieve();
-
-//        $archieve =Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
-//            ->groupBy('year', 'month')
-//            ->orderByRaw('min(created_at) desc')
-//            ->get()
-//            ->toArray();
-
-        //return $archieve; Debugging purpose
-
         return view('posts.index', compact('posts', 'archieve'));
+
     }
 
     public function show(Post $post)
@@ -83,8 +52,15 @@ class PostsController extends Controller
            auth()->user()->publish(
                new Post(request(['title','body']))
            );
+        session()->flash('message', 'Your Post has now been published');
+        return redirect('/');
+    }
 
-//
+
+}
+
+/*******  REFERENCE FROM  store()****/
+
 //           Post::create([    // Check this code to user Model
 //            'title'   => request('title'),
 //            'body'    =>  request('body'),
@@ -93,6 +69,50 @@ class PostsController extends Controller
 //        ]);
 
     //Post::create(request(['title', 'body']));
-         return redirect('/');
-    }
-}
+       // return redirect('/');
+
+
+
+/*******  REFERENCE FROM INDEX()****/
+
+
+// Display  Message with session
+//return  session('message')
+//$posts = $posts->all();
+// dd($post);
+//$posts = (new \App\Repositories\Posts)->all();  Automatic injection
+
+//        $posts = Post::latest()
+//            ->filter(request(['month', 'year']))
+//            ->get();
+
+
+
+//Code is to mess .To refactor
+//$posts = Post::latest()->get();
+//        $posts = Post::latest();
+//
+//        if($month = request('month')){
+//            $posts->whereMonth('created_at', Carbon::parse($month)->month);
+//        }
+//
+//        if($year = request('year')){
+//            $posts->whereYear('created_at', $year);
+//        }
+//
+//        $post = $posts->get();
+
+
+//Select Post By Active
+
+//$archieve = Post::archieve();
+
+//        $archieve =Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
+//            ->groupBy('year', 'month')
+//            ->orderByRaw('min(created_at) desc')
+//            ->get()
+//            ->toArray();
+
+//return $archieve; Debugging purpose
+
+//return view('posts.index', compact('posts', 'archieve'));

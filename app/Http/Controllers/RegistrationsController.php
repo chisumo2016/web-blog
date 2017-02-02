@@ -22,6 +22,19 @@ class RegistrationsController extends Controller
     public function  store(RegistrationRequest  $request)
     {
 
+        $request->persist();
+
+        //Flash Message
+        session()->flash('message' , 'Thanks so much for signing up');
+        //redirect to the home page
+        return redirect()->home();
+
+    }
+
+
+}
+
+
         // validate the form  --This code has been mode to RegistrationRequest class
 //        $this->validate(request(),[
 //            'name'     =>   'required',
@@ -30,8 +43,9 @@ class RegistrationsController extends Controller
 //        ]);
 
 
-          $request->persist();
-        // create and save the user
+         // $request->persist();//        // Session message
+       //session('message', 'Here is default message');
+// create and save the user
         //$user = User::create(['name','email','password'];
 //         $user = User::create([
 //             'name' => $request->get('name'),
@@ -44,9 +58,12 @@ class RegistrationsController extends Controller
 //
 //         //Sending an email
 //        \Mail::to($user)->send(new Welcome($user));
+//
+//        $request->persist();
+//        // Session
+//        session('message', 'Here is default message');
+//        //redirect to the home page
+//        return redirect()->home();
 
-        //redirect to the home page
-        return redirect()->home();
 
-    }
-}
+
